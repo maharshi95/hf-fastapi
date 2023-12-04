@@ -34,7 +34,7 @@ def main(args: argparse.Namespace) -> None:
             f"Found {args.model_name} in model factory. Using pipeline config: {pipeline_config}"
         )
     else:
-        pipeline_config = {**default_configs, "model_name": args.model_name}
+        pipeline_config = {**default_configs, "model": args.model_name}
         logger.info(
             f"Did not find {args.model_name} in model factory. Using default pipeline config: {pipeline_config}"
         )

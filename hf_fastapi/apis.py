@@ -10,16 +10,15 @@ class HeartbeatResult(BaseModel):
     is_alive: bool
 
 
-class GenerationPayload(BaseModel):
-    prompt: str
-    max_new_tokens: int = 20
-    return_full_text: bool = False
-
-
 class GenerationResult(BaseModel):
     input_text: str
     generated_text: str
     model_name: str
+
+
+class GenerationPayload(BaseModel):
+    prompt: str
+    max_new_tokens: int = 20
 
 
 @router.get("/heartbeat", response_model=HeartbeatResult, name="heartbeat")
