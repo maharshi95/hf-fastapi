@@ -1,0 +1,10 @@
+{
+    "slurm_account": "cml-zhou",
+    "slurm_partition": "cml-dpart",
+    "slurm_qos": "cml-medium",
+    "slurm_gres": "gpu:rtxa6000:1",
+    "slurm_time": "10:00:00",
+    "slurm_mem": "60G",
+    "slurm_ntasks_per_node": 1,
+    "slurm_cpus_per_task": 1
+}

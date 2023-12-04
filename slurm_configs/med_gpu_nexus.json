@@ -1,0 +1,10 @@
+{
+    "slurm_account": "nexus",
+    "slurm_partition": "tron",
+    "slurm_qos": "default",
+    "slurm_gres": "gpu:rtxa5000:1",
+    "slurm_time": "10:00:00",
+    "slurm_mem": "30G",
+    "slurm_ntasks_per_node": 1,
+    "slurm_cpus_per_task": 4
+}
