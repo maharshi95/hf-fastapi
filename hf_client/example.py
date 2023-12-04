@@ -1,5 +1,5 @@
 import argparse
-from hf_client import HFClient
+from client import HFClient
 
 parser = argparse.ArgumentParser()
 parser.add_argument("--host", type=str, default="localhost")
