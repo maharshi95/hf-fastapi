@@ -33,6 +33,22 @@ def add_arguments(
     return parser
 
 
+def find_port(base_port: int) -> int:
+    """Find an open port."""
+    import socket
+
+    sock = socket.socket()
+    for port in range(base_port, base_port + 100):
+        try:
+            sock.bind(("localhost", port))
+        except OSError:
+            pass
+        else:
+            sock.close()
+            return port
+    raise OSError("Could not find an open port")
+
+
 def main(args: argparse.Namespace) -> None:
     if args.model_name in PIPELINE_CONFIGS:
         pipeline_config = PIPELINE_CONFIGS[args.model_name]
@@ -47,7 +63,9 @@ def main(args: argparse.Namespace) -> None:
     if args.torch_dtype:
         pipeline_config["torch_dtype"] = args.torch_dtype
     fast_app = app.get_app(pipeline_config)
-    uvicorn.run(fast_app, host="0.0.0.0", port=args.port)
+    port = find_port(args.port)
+    logger.info(f"Found open port: {port}")
+    uvicorn.run(fast_app, host="0.0.0.0", port=port)
 
 
 if __name__ == "__main__":
