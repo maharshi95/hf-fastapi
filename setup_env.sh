@@ -27,6 +27,9 @@ pip install torch torchvision torchaudio pytorch-lightning[extra]
 # huggingface installs
 pip install --no-cache transformers tokenizers accelerate datasets evaluate seqeval sentencepiece bitsandbytes xformers
 
+# Data model installs
+pip install "pydantic>=2.0"
+
 # FastAPI installs
 pip install loguru fastapi "uvicorn[standard]"
 
