@@ -8,6 +8,7 @@ def get_custom_generate_kwargs(llm_pipeline: Pipeline):
         kwargs["pad_token_id"] = llm_pipeline.tokenizer.eos_token_id
     if "falcon-" in llm_pipeline.model.name_or_path:
         kwargs["eos_token_id"] = llm_pipeline.tokenizer.eos_token_id
+        kwargs["pad_token_id"] = llm_pipeline.tokenizer.eos_token_id
     if isinstance(llm_pipeline, TextGenerationPipeline):
         kwargs["return_full_text"] = False
     return kwargs

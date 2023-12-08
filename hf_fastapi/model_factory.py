@@ -87,6 +87,12 @@ _falcon_pipeline_configs = {
         "torch_dtype": torch.bfloat16,
         "trust_remote_code": True,
     },
+    "falcon-40b-inst": {
+        **default_configs,
+        "model": "tiiuae/falcon-40b-instruct",
+        "torch_dtype": torch.bfloat16,
+        "trust_remote_code": True,
+    },
 }
 
 PIPELINE_CONFIGS = {

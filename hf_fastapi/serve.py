@@ -29,6 +29,9 @@ def add_arguments(
     parser.add_argument(
         "--port", "-p", type=int, default=8000, help="The port to run the server on."
     )
+    parser.add_argument(
+        "--use-8bit", action="store_true", help="Use 8-bit quantization."
+    )
 
     return parser
 
@@ -62,6 +65,9 @@ def main(args: argparse.Namespace) -> None:
         )
     if args.torch_dtype:
         pipeline_config["torch_dtype"] = args.torch_dtype
+
+    if args.use_8bit:
+        pipeline_config["model_kwargs"]["load_in_8bit"] = True
     fast_app = app.get_app(pipeline_config)
     port = find_port(args.port)
     logger.info(f"Found open port: {port}")
