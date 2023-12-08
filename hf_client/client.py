@@ -1,9 +1,17 @@
+from typing import Optional
 import requests
 from pydantic import BaseModel
 
 
 class HeartbeatResult(BaseModel):
     is_alive: bool
+
+
+class ModelInfoResult(BaseModel):
+    is_ready: bool
+    model: Optional[str] = None
+    device: Optional[str] = None
+    dtype: Optional[str] = None
 
 
 class GenerationResult(BaseModel):
@@ -18,14 +26,24 @@ class HFClient:
         self.port = port
         self.version = version
         self.base_url = f"http://{host}:{port}/api/{version}"
-        self.heartbeat_endpoint = f"{self.base_url}/heartbeat"
-        self.generate_endpoint = f"{self.base_url}/generate"
+
+        self.endpoints = {
+            "heartbeat": f"{self.base_url}/heartbeat",
+            "generate": f"{self.base_url}/generate",
+            "model": f"{self.base_url}/model",
+        }
 
     def get_heartbeat(self) -> HeartbeatResult:
-        resp = requests.get(self.heartbeat_endpoint).json()
+        resp = requests.get(self.endpoints["heartbeat"]).json()
         return HeartbeatResult(**resp)
+
+    def get_model_info(self) -> ModelInfoResult:
+        resp = requests.get(self.endpoints["model"])
+        resp.ok or resp.raise_for_status()
+        return ModelInfoResult(**resp.json())
 
     def generate(self, prompt: str, max_new_tokens: int = 20) -> GenerationResult:
         payload = {"prompt": prompt, "max_new_tokens": max_new_tokens}
-        resp = requests.post(self.generate_endpoint, json=payload).json()
-        return GenerationResult(**resp)
+        resp = requests.post(self.endpoints["generate"], json=payload)
+        resp.ok or resp.raise_for_status()
+        return GenerationResult(**resp.json())

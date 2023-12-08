@@ -18,7 +18,7 @@ class GenerationResult(BaseModel):
 
 
 class ModelInfoResult(BaseModel):
-    is_loaded: bool
+    is_ready: bool
     model: Optional[str] = None
     device: Optional[str] = None
     dtype: Optional[str] = None
@@ -38,9 +38,9 @@ def get_heartbeat() -> HeartbeatResult:
 def get_model_info(request: Request) -> ModelInfoResult:
     model: HFModel = request.app.state.model
     if model is None:
-        return ModelInfoResult(is_loaded=False)
+        return ModelInfoResult(is_ready=False)
     return ModelInfoResult(
-        is_loaded=True,
+        is_ready=True,
         model=model.model_name,
         device=str(model.device),
         dtype=str(model.torch_dtype),
