@@ -1,3 +1,4 @@
+from typing import Optional
 from fastapi import APIRouter, Request
 from pydantic import BaseModel
 
@@ -16,6 +17,13 @@ class GenerationResult(BaseModel):
     model_name: str
 
 
+class ModelInfoResult(BaseModel):
+    is_loaded: bool
+    model: Optional[str] = None
+    device: Optional[str] = None
+    dtype: Optional[str] = None
+
+
 class GenerationPayload(BaseModel):
     prompt: str
     max_new_tokens: int = 20
@@ -23,8 +31,20 @@ class GenerationPayload(BaseModel):
 
 @router.get("/heartbeat", response_model=HeartbeatResult, name="heartbeat")
 def get_heartbeat() -> HeartbeatResult:
-    heartbeat = HeartbeatResult(is_alive=True)
-    return heartbeat
+    return HeartbeatResult(is_alive=True)
+
+
+@router.get("/model", response_model=ModelInfoResult, name="model")
+def get_model_info(request: Request) -> ModelInfoResult:
+    model: HFModel = request.app.state.model
+    if model is None:
+        return ModelInfoResult(is_loaded=False)
+    return ModelInfoResult(
+        is_loaded=True,
+        model=model.model_name,
+        device=str(model.device),
+        dtype=str(model.torch_dtype),
+    )
 
 
 @router.post("/generate", response_model=GenerationResult, name="generate")
