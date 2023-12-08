@@ -21,6 +21,12 @@ def add_arguments(
         help="The name of the model to use.",
     )
     parser.add_argument(
+        "--torch-dtype",
+        "-t",
+        default=None,
+        help="The torch dtype to use. If not specified, will use the default for the model.",
+    )
+    parser.add_argument(
         "--port", "-p", type=int, default=8000, help="The port to run the server on."
     )
 
@@ -38,6 +44,8 @@ def main(args: argparse.Namespace) -> None:
         logger.info(
             f"Did not find {args.model_name} in model factory. Using default pipeline config: {pipeline_config}"
         )
+    if args.torch_dtype:
+        pipeline_config["torch_dtype"] = args.torch_dtype
     fast_app = app.get_app(pipeline_config)
     uvicorn.run(fast_app, host="0.0.0.0", port=args.port)
 
