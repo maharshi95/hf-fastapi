@@ -7,7 +7,7 @@ import torch
 from . import models
 
 
-def _startup_model(app: FastAPI, pipeline_config: dict) -> torch.device:
+def _startup_model(app: FastAPI, pipeline_config: dict) -> models.HFModel:
     """
     Initializes and sets up the model for the FastAPI application.
 
@@ -18,9 +18,8 @@ def _startup_model(app: FastAPI, pipeline_config: dict) -> torch.device:
     Returns:
         torch.device: The device on which the model is initialized.
     """
-    model_instance = models.HFModel(pipeline_config)
-    app.state.model = model_instance
-    return model_instance.device
+    app.state.model = models.HFModel(pipeline_config)
+    return app.state.model
 
 
 def _shutdown_model(app: FastAPI) -> None:
@@ -31,8 +30,10 @@ def _shutdown_model(app: FastAPI) -> None:
 def start_app_handler(app: FastAPI, pipeline_config: dict) -> Callable:
     def startup() -> None:
         logger.info("Running app start handler.")
-        model_device = _startup_model(app, pipeline_config)
-        logger.info(f"Model loaded successfully on device: {model_device}")
+        hf_model = _startup_model(app, pipeline_config)
+        logger.info(f"Model name: {hf_model.model_name}")
+        logger.info(f"Model loaded on device: {hf_model.device}")
+        logger.info(f"Model dtype: {hf_model.torch_dtype}")
 
     return startup
 
