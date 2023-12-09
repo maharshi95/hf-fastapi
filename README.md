@@ -31,14 +31,14 @@ An example of a SLURM config file is given below:
 
 ```json
 {
-    "slurm_account": "$SLURM_ACCOUNT",
-    "slurm_partition": "$SLURM_PARTITION",
-    "slurm_qos": "default",
-    "slurm_gres": "gpu:rtxa5000:1",
-    "slurm_time": "10:00:00",
-    "slurm_mem": "30G",
-    "slurm_ntasks_per_node": 1,
-    "slurm_cpus_per_task": 4
+    "account": "$SLURM_ACCOUNT",
+    "partition": "$SLURM_PARTITION",
+    "qos": "default",
+    "gres": "gpu:rtxa5000:1",
+    "time": "10:00:00",
+    "mem": "30G",
+    "ntasks-per-node": 1,
+    "cpus-per-task": 4
 }
 ```
 

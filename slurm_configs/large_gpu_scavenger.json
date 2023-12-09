@@ -1,9 +1,9 @@
 {
-    "slurm_account": "scavenger",
-    "slurm_partition": "scavenger",
-    "slurm_qos": "scavenger",
-    "slurm_gres": "gpu:rtxa6000:1",
-    "slurm_time": "10:00:00",
-    "slurm_mem": "60G",
-    "slurm_ntasks_per_node": 4
+    "account": "scavenger",
+    "partition": "scavenger",
+    "qos": "scavenger",
+    "gres": "gpu:rtxa6000:1",
+    "time": "10:00:00",
+    "mem": "60G",
+    "ntasks-per-node": 4
 }

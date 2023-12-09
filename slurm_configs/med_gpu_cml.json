@@ -1,7 +1,7 @@
 {
-    "account": "scavenger",
-    "partition": "scavenger",
-    "qos": "scavenger",
+    "account": "cml",
+    "partition": "cml-dpart",
+    "qos": "cml-default",
     "gres": "gpu:rtxa5000:1",
     "time": "10:00:00",
     "mem": "30G",

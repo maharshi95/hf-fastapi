@@ -2,8 +2,8 @@
     "account": "scavenger",
     "partition": "scavenger",
     "qos": "scavenger",
-    "gres": "gpu:rtxa6000:2",
+    "gres": "gpu:rtxa4000:4",
     "time": "10:00:00",
-    "mem": "80G",
-    "ntasks-per-node": 3
+    "mem": "60G",
+    "cpus-per-task": "4"
 }

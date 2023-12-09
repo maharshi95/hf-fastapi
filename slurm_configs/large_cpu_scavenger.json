@@ -1,8 +1,8 @@
 {
-    "slurm_account": "scavenger",
-    "slurm_partition": "scavenger",
-    "slurm_qos": "scavenger",
-    "slurm_time": "10:00:00",
-    "slurm_mem": "200G",
-    "slurm_cpus_per_task": 12
+    "account": "scavenger",
+    "partition": "scavenger",
+    "qos": "scavenger",
+    "time": "10:00:00",
+    "mem": "200G",
+    "cpus-per-task": 12
 }
