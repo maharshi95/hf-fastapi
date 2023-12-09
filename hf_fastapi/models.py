@@ -6,7 +6,9 @@ def get_custom_generate_kwargs(llm_pipeline: Pipeline):
     kwargs = {}
     if "mistral" in llm_pipeline.model.name_or_path:
         kwargs["pad_token_id"] = llm_pipeline.tokenizer.eos_token_id
-    if "falcon-" in llm_pipeline.model.name_or_path:
+    elif "pythia" in llm_pipeline.model.name_or_path:
+        kwargs["pad_token_id"] = llm_pipeline.tokenizer.eos_token_id
+    elif "falcon-" in llm_pipeline.model.name_or_path:
         kwargs["eos_token_id"] = llm_pipeline.tokenizer.eos_token_id
         kwargs["pad_token_id"] = llm_pipeline.tokenizer.eos_token_id
     if isinstance(llm_pipeline, TextGenerationPipeline):
